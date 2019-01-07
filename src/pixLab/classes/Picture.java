@@ -119,6 +119,23 @@ public class Picture extends SimplePicture
     } 
   }
   
+  public void mirrorHorizontal()
+  {
+	Pixel[][] pixels = this.getPixels2D();
+	Pixel topPixel = null;
+	Pixel bottomPixel = null;
+	int height = pixels[0].length;
+	for (int col = 0; col < pixels.length; col++)
+    {
+	      for (int row = 0; row < height / 2; row++)
+	      {
+	        topPixel = pixels[row][col];
+	        bottomPixel = pixels[col][height - 1 - row];
+	        bottomPixel.setColor(topPixel.getColor());
+	      }
+	    } 
+  }
+  
   /** Mirror just part of a picture of a temple */
   public void mirrorTemple()
   {
@@ -142,6 +159,30 @@ public class Picture extends SimplePicture
       }
     }
   }
+  
+  public void mirrorGull()
+  {
+	int mirrorPoint = 276;
+	  Pixel leftPixel = null;
+	  Pixel rightPixel = null;
+	  int count = 0;
+	  Pixel[][] pixels = this.getPixels2D();
+	    
+	  // loop through the rows
+	  for (int row = 27; row < 97; row++)
+	  {
+	    // loop from 13 to just before the mirror point
+	    for (int col = 13; col < mirrorPoint; col++)
+	    {
+	        
+	      leftPixel = pixels[row][col];      
+	      rightPixel = pixels[row]                       
+	                         [mirrorPoint - col + mirrorPoint];
+	      rightPixel.setColor(leftPixel.getColor());
+	    }
+	  }
+  	}
+  
   
   /** copy from the passed fromPic to the
     * specified startRow and startCol in the
@@ -224,7 +265,7 @@ public class Picture extends SimplePicture
    */
   public static void main(String[] args) 
   {
-    Picture beach = new Picture("beach.jpg");
+    Picture beach = new Picture("seagull.jpg");
     beach.explore();
     beach.zeroBlue();
     beach.explore();
