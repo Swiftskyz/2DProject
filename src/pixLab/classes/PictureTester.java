@@ -7,6 +7,9 @@ package pixLab.classes;
  * 
  * @author Barbara Ericson 
  */
+
+import java.awt.Color;
+
 public class PictureTester
 {
   /** Method to test zeroBlue */
@@ -59,6 +62,16 @@ public class PictureTester
 	gull.explore();
   }
   
+  public static void testChromakey()
+  {
+	  Picture source = new Picture("astronaut.jpg");
+	  Picture background = new Picture("Road.jpg");
+	  source.explore();
+	  background.explore();
+	  source.chromakey(background, Color.WHITE);
+	  source.explore();
+  }
+  
   /** Main method for testing.  Every class can have a main
     * method in Java */
   public static void main(String[] args)
@@ -82,7 +95,7 @@ public class PictureTester
     //testCopy();
     //testEdgeDetection();
     //testEdgeDetection2();
-    //testChromakey();
+    testChromakey();
     //testEncodeAndDecode();
     //testGetCountRedOverValue(250);
     //testSetRedToHalfValueInTopHalf();
