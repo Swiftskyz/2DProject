@@ -94,7 +94,19 @@ public class Picture extends SimplePicture
     {
       for (Pixel pixelObj : rowArray)
       {
-        pixelObj.setBlue(0);
+        pixelObj.setBlue(100);
+      }
+    }
+  }
+  
+  public void zeroRed()
+  {
+    Pixel[][] pixels = this.getPixels2D();
+    for (Pixel[] rowArray : pixels)
+    {
+      for (Pixel pixelObj : rowArray)
+      {
+        pixelObj.setRed(300);
       }
     }
   }
@@ -265,10 +277,11 @@ public class Picture extends SimplePicture
    */
   public static void main(String[] args) 
   {
-    Picture beach = new Picture("seagull.jpg");
+    Picture beach = new Picture("StreetArt.jpg");
     beach.explore();
     beach.zeroBlue();
     beach.explore();
+    beach.zeroRed();
   }
   
   public void chromakey(Picture replacement, Color changeColor)
@@ -302,6 +315,10 @@ public class Picture extends SimplePicture
 		  for (int col = 0; col < pixels[0].length; col++)
 		  {
 			  shiftedValue = (col + amount) % width;
+			  if (amount < 0)
+			  {
+				  shiftedValue = ((col + amount) % width + width) % width;
+			  }
 			  copied[row][col].setColor(pixels[row][shiftedValue].getColor());
 		  }
 	  }
@@ -339,6 +356,55 @@ public class Picture extends SimplePicture
 		  }
 	  } 
   }
+
+public void hidePicture(Picture hidden)
+{
+	Pixel[][] pixels = this.getPixels2D();
+	Pixel[][] hiddenPixels = hidden.getPixels2D();
+	
+	for (int row = 0; row < pixels.length && row < hiddenPixels.length; row++)
+	{
+		for (int col = 0; col < pixels[0].length && col < hiddenPixels[0].length; col++)
+		{
+			// There is a message to hide
+			if (hiddenPixels[row][col].colorDistance(Color.WHITE) > 5)
+			{
+				if (pixels[row][col].getRed() > 0 && pixels[row][col].getRed() % 2 != 1)
+				{
+					pixels[row][col].setRed(pixels[row][col].getRed() - 1);
+				}
+			}
+			else if (pixels[row][col].getRed() > 0 && pixels[row][col].getRed() % 2 == 1)
+			{
+				pixels[row][col].setRed(pixels[row][col].getRed() - 1);
+			}
+		}
+	}
+	
+}
+
+public void revealPicture()
+{
+	Pixel[][] pixels = this.getPixels2D();
+	
+	for (int row = 0; row < pixels.length; row++)
+	{
+		for (int col = 0; col < pixels[0].length; col++)
+		{
+			// There is a message to reveal
+			if (pixels[row][col].getRed() > 0 && pixels[row][col].getRed() % 2 != 1)
+			{
+				pixels[row][col].setColor(Color.BLUE);
+			}
+			else if (pixels[row][col].getRed() > 0 && pixels[row][col].getRed() % 2 == 1)
+			{
+				pixels[row][col].setColor(Color.BLACK);
+			}
+		}
+	}
+}
+
+
   
   
   

@@ -72,6 +72,20 @@ public class PictureTester
 	  source.explore();
   }
   
+  public static void testSteganography()
+  {
+	  Picture source = new Picture("Woah.jpg");
+	  
+	  Picture message = new Picture("Monkey.jpg");
+	  source.explore();
+	  message.explore();
+	  source.hidePicture(message);
+	  source.explore();
+	  source.revealPicture();
+	  source.explore();
+	  
+  }
+  
   /** Main method for testing.  Every class can have a main
     * method in Java */
   public static void main(String[] args)
@@ -79,27 +93,28 @@ public class PictureTester
     // uncomment a call here to run a test
     // and comment out the ones you don't want
     // to run
-    testZeroBlue();
+    //testZeroBlue();
     //testKeepOnlyBlue();
     //testKeepOnlyRed();
     //testKeepOnlyGreen();
     //testNegate();
     //testGrayscale();
     //testFixUnderwater();
-    testMirrorVertical();
+    //testMirrorVertical();
     //testMirrorTemple();
     //testMirrorArms();
-    testMirrorGull();
+    //testMirrorGull();
     //testMirrorDiagonal();
-    testCollage();
+    //testCollage();
     //testCopy();
     //testEdgeDetection();
     //testEdgeDetection2();
-    testChromakey();
+    //testChromakey();
     //testEncodeAndDecode();
     //testGetCountRedOverValue(250);
     //testSetRedToHalfValueInTopHalf();
     //testClearBlueOverValue(200);
     //testGetAverageForColumn(0);
+	testSteganography();
   }
 }
